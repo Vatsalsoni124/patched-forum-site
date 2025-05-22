@@ -44,16 +44,32 @@ def index():
 def tools():
     user = get_guest_name()
     if request.method == "POST":
-        file = request.files["combo"]
-        filepath = os.path.join(UPLOAD_FOLDER, "combo.txt")
-        file.save(filepath)
-        os.rename(filepath, "combo.txt")
-        result = subprocess.run(["python3", "rdphost_threaded_tagged.py"], capture_output=True, text=True)
-        if os.path.exists("hits.txt"):
-            return send_file("hits.txt", as_attachment=True)
-        else:
-            return f"<pre>{result.stderr}</pre>"
+        try:
+            file = request.files["combo"]
+            filepath = os.path.join(UPLOAD_FOLDER, "combo.txt")
+            file.save(filepath)
+
+            # Rename to match checker expectation
+            os.rename(filepath, "combo.txt")
+
+            # RUN CHECKER — use 'python' not 'python3' for Render
+            result = subprocess.run(["python", "rdphost_threaded_tagged.py"], capture_output=True, text=True)
+
+            # DEBUG: Print stdout/stderr to webpage if hits.txt not found
+            if os.path.exists("hits.txt"):
+                return send_file("hits.txt", as_attachment=True)
+            else:
+                return f"""
+                <h2>❌ Checker did not generate hits.txt</h2>
+                <h3>🔍 Debug Output:</h3>
+                <pre>STDOUT:\n{result.stdout}</pre>
+                <pre>STDERR:\n{result.stderr}</pre>
+                """
+        except Exception as e:
+            return f"<h2>❌ An error occurred</h2><pre>{str(e)}</pre>"
+
     return render_template("tools.html", user=user)
+
 
 @app.route("/forum", methods=["GET", "POST"])
 def forum():
