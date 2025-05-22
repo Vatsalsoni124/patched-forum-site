@@ -68,5 +68,9 @@ def forum():
     posts = db.execute("SELECT * FROM posts ORDER BY id DESC").fetchall()
     return render_template("forum.html", posts=posts, user=user)
 
+import os
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Render sets this automatically
+    app.run(debug=False, host="0.0.0.0", port=port)
+
