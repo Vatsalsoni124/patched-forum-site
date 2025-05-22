@@ -53,7 +53,7 @@ def tools():
             os.rename(filepath, "combo.txt")
 
             # RUN CHECKER — use 'python' not 'python3' for Render
-            result = subprocess.run(["python", "rdphost_threaded_tagged.py"], capture_output=True, text=True)
+            result = subprocess.run(["python", "rdphost_threaded_tagged.py", filepath], capture_output=True, text=True)
 
             # DEBUG: Print stdout/stderr to webpage if hits.txt not found
             if os.path.exists("hits.txt"):
