@@ -1,0 +1,10 @@
+{% extends "index.html" %}
+{% block content %}
+<div class="max-w-xl mx-auto mt-16 text-center">
+  <h2 class="text-3xl font-semibold mb-4">🖥️ RDPHosting Checker</h2>
+  <form action="/tools" method="post" enctype="multipart/form-data" class="space-y-4">
+    <input type="file" name="combo" required class="block w-full p-3 bg-gray-800 border border-gray-600 rounded">
+    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded font-semibold">Check</button>
+  </form>
+</div>
+{% endblock %}

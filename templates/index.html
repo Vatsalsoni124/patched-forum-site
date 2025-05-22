@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>patched.tools</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white">
+  <div class="p-6 flex justify-between items-center border-b border-gray-700">
+    <div class="text-xl font-bold">patched.tools</div>
+    <div class="space-x-6">
+      <a href="/" class="hover:text-blue-400">Home</a>
+      <a href="/tools" class="hover:text-blue-400">RDPHosting Checker</a>
+      <a href="/forum" class="hover:text-blue-400">Forum</a>
+    </div>
+    <div class="text-sm text-gray-400">You are: {{ user }}</div>
+  </div>
+  {% block content %}{% endblock %}
+</body>
+</html>
